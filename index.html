@@ -1,364 +1,173 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>過去氣候變化</title>
 
   <style>
     :root{
-      --bg: #f3f5f7;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --shadow: 0 10px 26px rgba(0,0,0,.08);
-      --accent: #9b3b3b;      /* 酒紅 */
-      --accent-2: #b24b4b;
-      --link: #2563eb;
+      --bg:#f3f5f7;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --accent:#9b3b3b;
+      --shadow:0 8px 20px rgba(0,0,0,.08);
     }
 
-    *{ box-sizing: border-box; }
+    *{ box-sizing:border-box; }
 
     body{
-      margin: 0;
-      font-family: "微軟正黑體", Arial, sans-serif;
-      line-height: 1.7;
-      background: var(--bg);
-      color: var(--text);
+      margin:0;
+      background:var(--bg);
+      font-family:"微軟正黑體", Arial, sans-serif;
+      color:var(--text);
+      line-height:1.7;
     }
 
-    /* 頂部列 */
-    .topbar{
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar-inner{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-    .brand{
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      min-width: 200px;
-    }
-    .brand .dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent);
-      display: inline-block;
-    }
-    .brand h1{
-      margin: 0;
-      font-size: 1.25rem;
-      letter-spacing: .5px;
-    }
-    .meta{
-      color: var(--muted);
-      font-size: .95rem;
-      white-space: nowrap;
-    }
-
-    /* 主容器 */
     .wrap{
-      max-width: 1100px;
-      margin: 20px auto 56px;
-      padding: 0 18px;
-    }
-    .container{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      max-width:1000px;
+      margin:40px auto 60px;
+      padding:0 20px;
     }
 
-    /* 麵包屑 */
-    .breadcrumb{
-      padding: 16px 22px;
-      background: #fbfbfc;
-      border-bottom: 1px solid var(--border);
-      color: var(--muted);
-      font-size: .95rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .crumb-pill{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 999px;
-      color: var(--muted);
-    }
-    .crumb-pill b{
-      color: var(--text);
-      font-weight: 700;
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:28px 30px 34px;
     }
 
-    /* 內容 */
-    .content{
-      padding: 22px 22px 28px;
+    h1{
+      margin:0 0 10px;
+      font-size:2rem;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    h1::before{
+      content:"";
+      width:10px;
+      height:30px;
+      border-radius:6px;
+      background:var(--accent);
     }
 
-    /* 主標 */
-    .page-title{
-      margin: 0 0 14px;
-      font-size: 2rem;
-      letter-spacing: .5px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .page-title::before{
-      content: "";
-      width: 10px;
-      height: 28px;
-      border-radius: 6px;
-      background: var(--accent);
-      display: inline-block;
-    }
     .subtitle{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 1.02rem;
+      color:var(--muted);
+      margin-bottom:24px;
+      font-size:1.05rem;
     }
 
-    /* 小節標題 */
-    .section-title{
-      margin: 22px 0 12px;
-      font-size: 1.35rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    h2{
+      margin:26px 0 12px;
+      font-size:1.35rem;
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
-    .section-title::before{
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent-2);
-      display: inline-block;
+    h2::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--accent);
     }
 
-    /* 文字資訊卡 */
-    .info-card{
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 12px;
-      padding: 16px 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.05);
+    .text-box{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px 18px;
+      background:#fff;
+      margin-bottom:22px;
     }
-    .lead{
-      margin: 0 0 10px;
-      font-size: 1.05rem;
-    }
-    .bullets{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text);
-    }
-    .bullets li{ margin: 6px 0; }
 
-    /* 圖片卡 */
-    .figure-card{
-      margin-top: 14px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 6px 16px rgba(0,0,0,.05);
+    .text-box p{
+      margin:6px 0;
     }
-    .figure-card img{
-      width: 100%;
-      height: auto;
-      display: block;
+
+    .figure{
+      margin-top:18px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
     }
+
+    .figure img{
+      width:100%;
+      display:block;
+    }
+
     .figcap{
-      padding: 10px 12px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: .95rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .figcap .tag{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #fbfbfc;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: .9rem;
-      white-space: nowrap;
-    }
-    .tag i{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      display: inline-block;
+      padding:10px 14px;
+      font-size:.95rem;
+      color:var(--muted);
+      border-top:1px solid var(--border);
     }
 
-    /* 分隔線 */
-    .divider{
-      margin: 18px 0;
-      border: 0;
-      border-top: 1px solid var(--border);
-    }
-
-    /* Grid */
-    .grid{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    @media (min-width: 920px){
-      .grid.two{
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    /* 備註 */
     .note{
-      margin-top: 18px;
-      padding: 14px 14px;
-      border: 1px solid #f1d6d6;
-      background: #fff7f7;
-      border-radius: 12px;
-      color: #5b2323;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
+      margin-top:26px;
+      padding:14px 16px;
+      border-left:6px solid var(--accent);
+      background:#fff7f7;
+      border-radius:10px;
+      color:#5b2323;
+      font-size:.95rem;
     }
-    .note .badge{
-      flex: 0 0 auto;
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-    }
-    .note p{ margin: 0; }
 
-    @media (max-width: 640px){
-      .page-title{ font-size: 1.6rem; }
-      .content{ padding: 18px 14px 22px; }
-      .breadcrumb{ padding: 14px 14px; }
-      .topbar-inner{ padding: 12px 14px; }
-      .meta{ display: none; }
+    @media(max-width:640px){
+      h1{ font-size:1.6rem; }
+      .wrap{ margin:24px auto 40px; }
+      .card{ padding:22px 18px 26px; }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <span class="dot"></span>
-        <h1>過去氣候變化</h1>
-      </div>
-      <div class="meta">資料更新：以報告/圖資來源為準</div>
-    </div>
-  </header>
-
   <main class="wrap">
-    <div class="container">
-      <div class="breadcrumb">
-        <span class="crumb-pill">即時情勢</span>
-        <span>/</span>
-        <span class="crumb-pill"><b>地方防災資訊</b></span>
-        <span>/</span>
-        <span class="crumb-pill">氣候變遷</span>
-        <span>/</span>
-        <span class="crumb-pill"><b>過去氣候變化</b></span>
+    <section class="card">
+
+      <!-- 你指定要保留的起點 -->
+      <h1>過去氣候變化</h1>
+      <p class="subtitle">
+        聚焦 1960–2020 年溫度與降雨的變化概況（平地／山區／高山分區）。
+      </p>
+
+      <h2>1960–2020 年</h2>
+      <div class="text-box">
+        <p>宜蘭縣年平均溫度為 <b>18.3°C</b>；年降雨量平均為 <b>2,597.8 毫米</b>（中位數）。</p>
+        <p>• 1960–2020 年：年平均溫度每十年增加 <b>0.05°C</b>，年降雨量增加 <b>81.0 毫米</b></p>
+        <p>• 1991–2020 年：年平均溫度每十年減少 <b>0.18°C</b>，年降雨量增加 <b>41.5 毫米</b></p>
       </div>
 
-      <div class="content">
-        <h2 class="page-title">過去氣候變化</h2>
-        <p class="subtitle">聚焦 1960–2020 年溫度與降雨的變化概況（平地/山區/高山分區）。</p>
-
-        <h3 class="section-title">1960–2020 年</h3>
-
-        <div class="info-card">
-          <p class="lead">宜蘭縣年平均溫度為 <b>18.3℃</b>；年降雨量平均為 <b>2,597.8 毫米</b>（中位數）。</p>
-          <ul class="bullets">
-            <li>1960–2020 年：年平均溫度每十年增加 <b>0.05℃</b>，年降雨量增加 <b>81.0 毫米</b></li>
-            <li>1991–2020 年：年平均溫度每十年減少 <b>0.18℃</b>，年降雨量增加 <b>41.5 毫米</b></li>
-          </ul>
-        </div>
-
-        <div class="figure-card">
-         <img src="PCC_01.png" alt="年平均溫度/年降雨量">
-          <div class="figcap">
-            <span>年平均溫度 / 年降雨量（時間序列）</span>
-            <span class="tag"><i></i> 圖表</span>
-          </div>
-        </div>
-
-        <hr class="divider" />
-
-        <div class="grid">
-          <div>
-            <h3 class="section-title">平地（海拔 500 公尺以下）</h3>
-            <div class="figure-card">
-              <img src="PCC_02.png" alt="平地（海拔500公尺以下區域）" />
-              <div class="figcap">
-                <span>平地分區圖表</span>
-                <span class="tag"><i></i> 分區</span>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 class="section-title">山區（海拔 500–1,500 公尺）</h3>
-            <div class="figure-card">
-              <img src="PCC_03.png" alt="山區（海拔500-1,500公尺區域）" />
-              <div class="figcap">
-                <span>山區分區圖表</span>
-                <span class="tag"><i></i> 分區</span>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 class="section-title">高山區（海拔 1,500 公尺以上）</h3>
-            <div class="figure-card">
-              <img src="PCC_04.png" alt="高山區（海拔1,500公尺以上區域）" />
-              <div class="figcap">
-                <span>高山分區圖表</span>
-                <span class="tag"><i></i> 分區</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="note">
-          <div class="badge">i</div>
-          <p>資料來源：『縣市氣候變遷概述 2024』，國科會「臺灣氣候變遷推估資訊與調適知識平台計畫（TCCIP）」。</p>
-        </div>
+      <!-- 平地 -->
+      <h2>平地（海拔 500 公尺以下）</h2>
+      <div class="figure">
+        <img src="PCC_02.png" alt="平地氣候變化">
+        <div class="figcap">平地區域之溫度與降雨變化分布</div>
       </div>
-    </div>
+
+      <!-- 山區 -->
+      <h2>山區（海拔 500–1,500 公尺）</h2>
+      <div class="figure">
+        <img src="PCC_03.png" alt="山區氣候變化">
+        <div class="figcap">山區區域之溫度與降雨變化分布</div>
+      </div>
+
+      <!-- 高山 -->
+      <h2>高山區（海拔 1,500 公尺以上）</h2>
+      <div class="figure">
+        <img src="PCC_04.png" alt="高山氣候變化">
+        <div class="figcap">高山區域之溫度與降雨變化分布</div>
+      </div>
+
+      <div class="note">
+        資料來源：『縣市氣候變遷概述 2024』，國科會「臺灣氣候變遷推估資訊與調適知識平台計畫（TCCIP）」。
+      </div>
+
+    </section>
   </main>
 </body>
 </html>
